@@ -1,0 +1,112 @@
+/* Theme Toggle Button Styles */
+.theme-toggle-btn {
+    position: absolute;
+    top: 25px;
+    right: 5%;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #f8fafc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.1);
+}
+
+/* Light Mode Variables & Overrides */
+body.light-mode {
+    background: radial-gradient(circle at top left, #e0f2fe 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #bfdbfe 0%, transparent 35%),
+                linear-gradient(135deg, #f8fafc, #f1f5f9, #e2e8f0);
+    color: #0f172a;
+}
+
+body.light-mode::before,
+body.light-mode::after {
+    opacity: 0.5;
+}
+
+body.light-mode .theme-toggle-btn {
+    background: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.1);
+    color: #1e293b;
+}
+
+body.light-mode .theme-toggle-btn:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+body.light-mode .card,
+body.light-mode .result-card {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06), inset 0 0 1px rgba(255,255,255,0.8);
+}
+
+body.light-mode .hero h1 {
+    color: #1e293b;
+}
+
+body.light-mode .hero p {
+    color: #475569;
+}
+
+body.light-mode .card h2, 
+body.light-mode .result-card h2 {
+    color: #2563eb;
+}
+
+body.light-mode .input-box label {
+    color: #475569;
+}
+
+body.light-mode .input-box span {
+    color: #3b82f6;
+}
+
+body.light-mode .input-box input,
+body.light-mode .input-box select {
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .input-box input::placeholder {
+    color: #94a3b8;
+}
+
+body.light-mode .input-box input:focus,
+body.light-mode .input-box select:focus {
+    background: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+body.light-mode .input-box select option {
+    background: #ffffff;
+    color: #0f172a;
+}
+
+body.light-mode .status {
+    color: #1e293b;
+}
+
+body.light-mode .prediction-note {
+    color: #475569;
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .btn {
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}

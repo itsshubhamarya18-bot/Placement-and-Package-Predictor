@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Placement & Package Predictor</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/light-mode.css') }}">
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<button id="theme-toggle" class="theme-toggle-btn" title="Toggle Theme">
+    <i class="fa-solid fa-sun" id="theme-icon"></i>
+</button>
+
+<div class="container">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <h1>
+            <i class="fa-solid fa-graduation-cap"></i>
+            Placement & Package Predictor
+        </h1>
+
+        <p>
+
+            Predict your placement chances and expected salary package
+            using Machine Learning.
+
+        </p>
+
+    </section>
+
+    <!-- ================= FORM ================= -->
+
+    <form action="/predict" method="POST">
+
+        <!-- ================= Academic Information ================= -->
+
+        <div class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-book-open"></i>
+
+                Academic Information
+
+            </h2>
+
+            <div class="grid">
+
+                <div class="input-box">
+
+                    <label>Age</label>
+
+                    <input
+                        type="number"
+                        name="age"
+                        min="16"
+                        max="40"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Gender</label>
+
+                    <select name="gender">
+
+                        <option value="Male">Male</option>
+
+                        <option value="Female">Female</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>CGPA</label>
+
+                    <input
+                        type="number"
+                        name="cgpa"
+                        step="0.01"
+                        min="0"
+                        max="10"
+                        placeholder="8.45"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Branch</label>
+
+                    <select name="branch">
+
+                        <option>CSE</option>
+
+                        <option>IT</option>
+
+                        <option>ECE</option>
+
+                        <option>EEE</option>
+
+                        <option>ME</option>
+
+                        <option>CE</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>College Tier</label>
+
+                    <select name="college_tier">
+
+                        <option value="Tier 1">Tier 1</option>
+
+                        <option value="Tier 2">Tier 2</option>
+
+                        <option value="Tier 3">Tier 3</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= Technical Profile ================= -->
+
+        <div class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-code"></i>
+
+                Technical Profile
+
+            </h2>
+
+            <div class="grid">
+
+                <div class="input-box">
+
+                    <label>Internships</label>
+
+                    <input
+                        type="number"
+                        name="internships_count"
+                        min="0"
+                        max="20"
+                        value="0"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Projects</label>
+
+                    <input
+                        type="number"
+                        name="projects_count"
+                        min="0"
+                        max="30"
+                        value="0"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Certifications</label>
+
+                    <input
+                        type="number"
+                        name="certifications_count"
+                        min="0"
+                        max="30"
+                        value="0"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Hackathons</label>
+
+                    <input
+                        type="number"
+                        name="hackathons_participated"
+                        min="0"
+                        max="20"
+                        value="0"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>GitHub Repositories</label>
+
+                    <input
+                        type="number"
+                        name="github_repos"
+                        min="0"
+                        max="200"
+                        value="0"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>LinkedIn Connections</label>
+
+                    <input
+                        type="number"
+                        name="linkedin_connections"
+                        min="0"
+                        max="5000"
+                        value="100"
+                        required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= Assessment Scores ================= -->
+
+        <div class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Assessment Scores
+
+            </h2>
+
+            <div class="grid">
+
+                <!-- Coding -->
+
+                <div class="input-box">
+
+                    <label>
+
+                        Coding Skill
+
+                        <span id="codingValue">50</span>
+
+                    </label>
+
+                    <input
+
+                        type="range"
+
+                        name="coding_skill_score"
+
+                        min="0"
+
+                        max="100"
+
+                        value="50"
+
+                        oninput="codingValue.innerHTML=this.value">
+
+                </div>
+
+                <!-- Aptitude -->
+
+                <div class="input-box">
+
+                    <label>
+
+                        Aptitude
+
+                        <span id="aptitudeValue">50</span>
+
+                    </label>
+
+                    <input
+
+                        type="range"
+
+                        name="aptitude_score"
+
+                        min="0"
+
+                        max="100"
+
+                        value="50"
+
+                        oninput="aptitudeValue.innerHTML=this.value">
+
+                </div>
+
+                <!-- Communication -->
+
+                <div class="input-box">
+
+                    <label>
+
+                        Communication
+
+                        <span id="communicationValue">50</span>
+
+                    </label>
+
+                    <input
+
+                        type="range"
+
+                        name="communication_skill_score"
+
+                        min="0"
+
+                        max="100"
+
+                        value="50"
+
+                        oninput="communicationValue.innerHTML=this.value">
+
+                </div>
+
+                    <!-- Logical Reasoning -->
+
+                <div class="input-box">
+
+                    <label>
+
+                        Logical Reasoning
+
+                        <span id="logicalValue">50</span>
+
+                    </label>
+
+                    <input
+
+                        type="range"
+
+                        name="logical_reasoning_score"
+
+                        min="0"
+
+                        max="100"
+
+                        value="50"
+
+                        oninput="logicalValue.innerHTML=this.value">
+
+                </div>
+
+                <!-- Mock Interview -->
+
+                <div class="input-box">
+
+                    <label>
+
+                        Mock Interview
+
+                        <span id="mockValue">50</span>
+
+                    </label>
+
+                    <input
+
+                        type="range"
+
+                        name="mock_interview_score"
+
+                        min="0"
+
+                        max="100"
+
+                        value="50"
+
+                        oninput="mockValue.innerHTML=this.value">
+
+                </div>
+
+                <!-- Leadership -->
+
+                <div class="input-box">
+
+                    <label>
+
+                        Leadership
+
+                        <span id="leadershipValue">50</span>
+
+                    </label>
+
+                    <input
+
+                        type="range"
+
+                        name="leadership_score"
+
+                        min="0"
+
+                        max="100"
+
+                        value="50"
+
+                        oninput="leadershipValue.innerHTML=this.value">
+
+                </div>
+
+                <!-- Extracurricular -->
+
+                <div class="input-box">
+
+                    <label>
+
+                        Extracurricular
+
+                        <span id="extraValue">50</span>
+
+                    </label>
+
+                    <input
+
+                        type="range"
+
+                        name="extracurricular_score"
+
+                        min="0"
+
+                        max="100"
+
+                        value="50"
+
+                        oninput="extraValue.innerHTML=this.value">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= Personal Profile ================= -->
+
+        <div class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-user"></i>
+
+                Personal Profile
+
+            </h2>
+
+            <div class="grid">
+
+                <div class="input-box">
+
+                    <label>Attendance (%)</label>
+
+                    <input
+
+                        type="number"
+
+                        name="attendance_percentage"
+
+                        min="0"
+
+                        max="100"
+
+                        placeholder="90"
+
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Backlogs</label>
+
+                    <input
+
+                        type="number"
+
+                        name="backlogs"
+
+                        min="0"
+
+                        max="15"
+
+                        value="0"
+
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Volunteer Experience</label>
+
+                    <select name="volunteer_experience">
+
+                        <option value="Yes">Yes</option>
+
+                        <option value="No">No</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Sleep Hours</label>
+
+                    <input
+
+                        type="number"
+
+                        name="sleep_hours"
+
+                        step="0.5"
+
+                        min="0"
+
+                        max="12"
+
+                        placeholder="7.5"
+
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Study Hours / Day</label>
+
+                    <input
+
+                        type="number"
+
+                        name="study_hours_per_day"
+
+                        step="0.5"
+
+                        min="0"
+
+                        max="16"
+
+                        placeholder="5"
+
+                        required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= Button ================= -->
+
+        <div style="display: flex; gap: 15px;">
+            <button class="btn" type="submit" style="flex: 1;">
+                <i class="fa-solid fa-robot"></i>
+                Predict Placement
+            </button>
+            <button type="button" class="btn" style="flex: 1; background-color: #475569;" onclick="window.location.href='/'">
+                <i class="fa-solid fa-rotate-right"></i>
+                Reset Data
+            </button>
+        </div>
+
+    </form>
+
+
+
+    <!-- ================= Prediction Result ================= -->
+
+    {% if result %}
+
+    <div class="result-card">
+
+        <h2>
+
+            <i class="fa-solid fa-chart-column"></i>
+
+            Prediction Result
+
+        </h2>
+
+        
+
+            <!-- ================= Status Card ================= -->
+
+<div class="status-card {% if result['placement']=='Placed' %}placed{% else %}not-placed{% endif %}">
+
+    {% if result["placement"]=="Placed" %}
+
+        <i class="fa-solid fa-circle-check status-icon"></i>
+
+    {% else %}
+
+        <i class="fa-solid fa-circle-xmark status-icon"></i>
+
+    {% endif %}
+
+    <h2>
+
+        Placement Prediction:
+        {{ result["placement"] }}
+
+    </h2>
+
+    <p>
+
+        {{ result["message"] }}
+
+    </p>
+
+</div>
+        
+
+        <div class="probability-section">
+
+    <div
+        class="circle"
+        style="background:
+        conic-gradient(
+        #3B82F6 {{ result['probability'] * 3.6 }}deg,
+        rgba(255,255,255,.12) 0deg
+        );">
+
+        <div class="inner-circle">
+
+            <span>
+
+                {{ result["probability"] }}%
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <h3>
+
+        Placement Probability
+
+    </h3>
+
+</div>
+
+        {% if result["package"] %}
+
+            <div class="package-card">
+
+    <i class="fa-solid fa-briefcase"></i>
+
+    <h3>
+
+        Estimated Salary Package
+
+    </h3>
+
+    <h1>
+
+        ₹ {{ result["package"] }} LPA
+
+    </h1>
+
+    <p>
+
+        Expected Annual CTC
+
+    </p>
+
+</div>
+
+        <div class="stats">
+
+    <div class="stat">
+
+        <h3>
+
+            Probability
+
+        </h3>
+
+        <p>
+
+            {{ result["probability"] }}%
+
+        </p>
+
+    </div>
+
+    <div class="stat">
+
+        <h3>
+
+            Confidence
+
+        </h3>
+
+        <span class="confidence {{ result['confidence']|lower }}">
+            {{ result["confidence"] }}
+        </span>
+
+    </div>
+
+    {% if result["package"] %}
+
+    <div class="stat">
+
+        <h3>
+
+            Package
+
+        </h3>
+
+        <p>
+
+            ₹ {{ result["package"] }}
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+        {% endif %}
+
+
+        {% if result["recommendation"] %}
+
+        <div class="recommendation-card">
+
+            <h3>
+
+                <i class="fa-solid fa-lightbulb"></i>
+
+                Recommendation
+
+            </h3>
+
+            <ul>
+
+{% for rec in result["recommendation"] %}
+
+<li>
+
+{{ rec }}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================= Footer ================= -->
+
+    <footer>
+
+        <p>
+
+            <i class="fa-solid fa-brain"></i>
+
+            Placement & Package Predictor |
+
+            Developed by <strong>Shubham Kumar</strong>
+
+        </p>
+
+        <div class="prediction-note">
+            <i class="fa-solid fa-circle-info"></i>
+            This prediction is generated by a machine learning model based on the information you provided. It is an estimate and should not be considered a guarantee of placement or salary.
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- ================= JavaScript ================= -->
+
+<script>
+
+// Theme toggle logic
+const themeToggleBtn = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+const body = document.body;
+
+const currentTheme = localStorage.getItem("theme");
+if (currentTheme === "light") {
+    body.classList.add("light-mode");
+    themeIcon.classList.replace("fa-sun", "fa-moon");
+}
+
+themeToggleBtn.addEventListener("click", () => {
+    body.classList.toggle("light-mode");
+    if (body.classList.contains("light-mode")) {
+        themeIcon.classList.replace("fa-sun", "fa-moon");
+        localStorage.setItem("theme", "light");
+    } else {
+        themeIcon.classList.replace("fa-moon", "fa-sun");
+        localStorage.setItem("theme", "dark");
+    }
+});
+
+document.querySelector("form").addEventListener("submit",function(){
+
+    const btn=document.querySelector('button[type="submit"]');
+
+    btn.innerHTML="<i class='fa-solid fa-spinner fa-spin'></i> Predicting...";
+
+    btn.disabled=true;
+
+});
+
+{% if form_data %}
+const formData = {{ form_data | tojson | safe }};
+for (const key in formData) {
+    const el = document.querySelector(`[name="${key}"]`);
+    if (el) {
+        el.value = formData[key];
+        if (el.tagName === 'INPUT' && el.type === 'range') {
+            const event = new Event('input');
+            el.dispatchEvent(event);
+        }
+    }
+}
+{% endif %}
+
+</script>
+
+</body>
+
+</html>
