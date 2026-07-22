@@ -643,6 +643,21 @@ input[type="range"]::-moz-range-thumb{
 
 }
 
+/* ==========================================================
+                BUTTON GROUP
+========================================================== */
+
+.button-group{
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.button-group .btn {
+    flex: 1;
+}
+
+
 
 /* ==========================================================
                 SMALL ANIMATION
@@ -1287,6 +1302,14 @@ a{
         font-size:17px;
 
         padding:15px;
+
+    }
+
+    .button-group{
+
+        flex-direction: column;
+
+        gap: 12px;
 
     }
 
